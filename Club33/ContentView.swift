@@ -8,17 +8,23 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject private var viewModel: ColorPickerViewModel
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        HSplitView {
+            // Left side: Color Grid and Hue Slider
+            ColorGridView()
+                .frame(minWidth: 400)
+            
+            // Right side: Color Values
+            ColorValuesView()
+                .frame(width: 300)
         }
-        .padding()
+        .preferredColorScheme(.dark)
     }
 }
 
 #Preview {
     ContentView()
+        .environmentObject(ColorPickerViewModel())
 }

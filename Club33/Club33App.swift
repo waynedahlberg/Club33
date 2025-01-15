@@ -8,10 +8,17 @@
 import SwiftUI
 
 @main
-struct Club33App: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
+struct ColorPickerApp: App {
+  @StateObject private var viewModel = ColorPickerViewModel()
+  
+  var body: some Scene {
+    WindowGroup {
+      ContentView()
+        .environmentObject(viewModel)
     }
+    .windowStyle(.titleBar)
+    .windowResizability(.contentSize)
+    .defaultSize(width: 800, height: 600)
+    .defaultPosition(.center)
+  }
 }
