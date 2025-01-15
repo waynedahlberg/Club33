@@ -13,7 +13,7 @@ struct FavoritesView: View {
   @EnvironmentObject private var viewModel: ColorPickerViewModel
   @AppStorage("favoriteColors") private var favoritesData: Data = Data()
   @State private var favorites: [FavoriteColor] = []
-  @State private var selectedFavoriteId: UUID? = nil
+  @Binding var selectedFavoriteId: UUID?
   
   private let columns = Array(repeating: GridItem(.flexible(), spacing: 4), count: 8)
   private let maxFavorites = 24
@@ -26,14 +26,7 @@ struct FavoritesView: View {
         
         Spacer()
         
-        HStack(spacing: 8) {
-          Button {
-            addFavorite()
-          } label: {
-            Image(systemName: "plus")
-          }
-          .buttonStyle(.borderless)
-          
+        HStack(spacing: 8) {          
           Button {
             removeFavorite()
           } label: {
@@ -41,6 +34,12 @@ struct FavoritesView: View {
           }
           .buttonStyle(.borderless)
 
+          Button {
+            addFavorite()
+          } label: {
+            Image(systemName: "plus")
+          }
+          .buttonStyle(.borderless)
         }
       }
       .padding(.horizontal)
@@ -52,7 +51,9 @@ struct FavoritesView: View {
             FavoriteColorCell(favorite: favorite, isSelected: selectedFavoriteId == favorite.id)
               .frame(height: 24)
               .onTapGesture {
+                // Update selected favorite and view model
                 selectedFavoriteId = favorite.id
+                viewModel.selectFavoriteColor(favorite)
                 copyToClipboard(favorite)
               }
           } else {

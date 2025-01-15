@@ -83,6 +83,20 @@ class ColorPickerViewModel: ObservableObject {
     storedBrightness = color.hsb.brightness
   }
   
+  func selectFavoriteColor(_ favorite: FavoriteColor) {
+    let hsb = HSBColor(
+      hue: favorite.hue,
+      saturation: favorite.saturation,
+      brightness: favorite.brightness
+    )
+    selectedColor = ColorValue(hsb: hsb)
+    selectedHue = hsb.hue
+    storedHue = hsb.hue
+    storedSaturation = hsb.saturation
+    storedBrightness = hsb.brightness
+    generateColorGrid()
+  }
+  
   func copyToClipboard() {
     NSPasteboard.general.clearContents()
     NSPasteboard.general.setString(selectedColor.hexString, forType: .string)
