@@ -16,13 +16,6 @@ struct ColorValuesView: View {
   
   var body: some View {
     VStack(spacing: 20) {
-      Text(showCopiedLabel ? "Copied to clipboard" : " ")
-        .font(.system(size: 16))
-        .monospaced()
-        .foregroundStyle(.primary)
-      
-        .padding(.top)
-      
       // Color preview
       RoundedRectangle(cornerRadius: 8)
         .fill(viewModel.selectedColor.color)
@@ -98,8 +91,13 @@ struct ColorValuesView: View {
       .padding()
       
       Spacer()
+      Text(showCopiedLabel ? "Copied to clipboard" : " ")
+        .font(.system(size: 16))
+        .monospaced()
+        .foregroundStyle(.primary)
+      
+        .padding(.top)
     }
-    .background(Color(nsColor: .windowBackgroundColor))
   }
   
   private func colorSection<Content: View>(

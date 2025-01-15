@@ -54,3 +54,23 @@ struct ColorValue: Hashable, Identifiable {
     )
   }
 }
+
+struct FavoriteColor: Codable, Identifiable, Hashable {
+    let id: UUID
+    let hexString: String
+    let hue: Double
+    let saturation: Double
+    let brightness: Double
+    
+    init(from colorValue: ColorValue) {
+        self.id = UUID()
+        self.hexString = colorValue.hexString
+        self.hue = colorValue.hsb.hue
+        self.saturation = colorValue.hsb.saturation
+        self.brightness = colorValue.hsb.brightness
+    }
+    
+    var color: Color {
+        Color(hue: hue/360, saturation: saturation/100, brightness: brightness/100)
+    }
+}

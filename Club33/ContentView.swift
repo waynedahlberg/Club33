@@ -17,8 +17,13 @@ struct ContentView: View {
                 .frame(minWidth: 400)
             
             // Right side: Color Values
+          VStack {
             ColorValuesView()
-                .frame(width: 300)
+              .frame(width: 300)
+            
+            // Favorites view
+            FavoritesView()            
+          }
         }
         .preferredColorScheme(.dark)
     }
